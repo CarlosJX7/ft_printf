@@ -12,19 +12,31 @@
 
 #include "ft_printf.h"
 
-int ft_print_char(va_list list)
+int	ft_print_char(char c)
 {
-	char c;
-
-	c = (char)va_arg(list, int);
 	ft_putchar_fd(c, 1);
 	return (1);
 }
 
-void ft_print_int(va_list list)
+int	ft_print_str(char *str)
 {
-	int n;
+	if (str)
+		ft_putstr_fd(str, 1);
+	else
+	{
+		ft_putstr_fd("(null)", 1);
+		return (6);
+	}
+	return (ft_strlen(str));
+}
 
-	n = (int)va_arg(list, int);
-	ft_putnbr_fd(n, 1);
+int	ft_print_ptr(void *ptr, char *base)
+{
+	if (ptr)
+		return (ft_print_str("0x") + putnbr_base_ul((unsigned long)ptr, base));
+	else
+	{
+		ft_putstr_fd("(nil)", 1);
+		return (5);
+	}
 }

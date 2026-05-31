@@ -7,7 +7,8 @@ LIBFT_DIR = libft
 LIBFT = $(LIBFT_DIR)/libft.a
 
 SRCS =	ft_printf.c \
-		types.c
+		print_types.c \
+		ft_putnbr_base.c
 
 OBJS = $(SRCS:.c=.o)
 
@@ -35,5 +36,8 @@ re: fclean all
 
 main:
 	$(CC) $(CFLAGS) main.c libftprintf.a
+
+run:
+	./a.out
 
 .PHONY: all clean fclean re
