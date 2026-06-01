@@ -47,10 +47,12 @@ int	print_output(char *str, va_list list)
 
 	i = 0;
 	printed = 0;
-	while (i < ft_strlen(str))
+	while (str[i])
 	{
 		if (str[i] == '%')
 		{
+			if (str[i + 1] == '\0')
+				break ;
 			i++;
 			printed += print_type(str[i], list);
 		}
@@ -70,6 +72,8 @@ int	ft_printf(char const *format, ...)
 	char	*str;
 	int		printed;
 
+	if (!format)
+		return (-1);
 	printed = 0;
 	str = (char *)format;
 	va_start(list, format);
