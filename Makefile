@@ -1,34 +1,40 @@
-NAME = libftprintf.a
+NAME		= libftprintf.a
 
-CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CC			= cc
+CFLAGS		= -Wall -Wextra -Werror
 
-LIBFT_DIR = libft
-LIBFT = $(LIBFT_DIR)/libft.a
+AR			= ar
+ARFLAGS		= rcs
+RM			= rm -f
 
-SRCS =	ft_printf.c \
-		ft_putnbr_base.c
+LIBFT_DIR	= libft
+LIBFT		= $(LIBFT_DIR)/libft.a
 
-OBJS = $(SRCS:.c=.o)
+SRCS		= ft_printf.c \
+			  ft_putnbr_base.c
 
-HEADER = ft_printf.h
+OBJS		= $(SRCS:.c=.o)
+
+HEADER		= ft_printf.h
 
 all: $(NAME)
 
-$(NAME): $(OBJS)
+$(LIBFT):
 	$(MAKE) -C $(LIBFT_DIR)
+
+$(NAME): $(LIBFT) $(OBJS)
 	cp $(LIBFT) $(NAME)
-	ar rcs $(NAME) $(OBJS)
+	$(AR) $(ARFLAGS) $(NAME) $(OBJS)
 
 %.o: %.c $(HEADER)
 	$(CC) $(CFLAGS) -I$(LIBFT_DIR) -c $< -o $@
 
 clean:
-	rm -f $(OBJS)
+	$(RM) $(OBJS)
 	$(MAKE) -C $(LIBFT_DIR) clean
 
 fclean: clean
-	rm -f $(NAME)
+	$(RM) $(NAME)
 	$(MAKE) -C $(LIBFT_DIR) fclean
 
 re: fclean all
